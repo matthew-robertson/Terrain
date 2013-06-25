@@ -27,12 +27,16 @@ public class Vector3d{
 		return Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z,  2);
 	}
 	
+	public Vector3d normalize(){
+		return scalarMultiple(1.0 / length());
+	}
+	
 	public double length(){
 		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z,  2));
 	}
 	
-	public Vector3d scalarMultiple(float scalar){
-		return (new Vector3d(x * scalar, y * scalar, z * scalar));
+	public Vector3d scalarMultiple(double d){
+		return (new Vector3d(x * d, y * d, z * d));
 	}
 	
 	public String toString()

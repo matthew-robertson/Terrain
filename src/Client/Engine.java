@@ -1,7 +1,4 @@
 package Client;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -9,6 +6,8 @@ import org.lwjgl.opengl.DisplayMode;
 import Input.InputHandler;
 import Render.Camera;
 import Render.Renderer;
+import Terrain.DiamondSquareTerrain;
+import Terrain.Terrain;
 import Utils.Vector3d;
 
 /**
@@ -23,6 +22,7 @@ public class Engine{
 	long lastFrame;
 	long lastball;
 	public int roomsize;
+	public Terrain terrain;
 	
 	InputHandler input;
 	Renderer render;
@@ -57,7 +57,21 @@ public class Engine{
 	 * Check for and resolve collisions
 	 */
 	public void gameLoop(){
-		camera = new Camera(this, new Vector3d(0,0,0), new Vector3d(0,0,0), 45.0f, 0.1f, 200f);
+		camera = new Camera(this, new Vector3d(0,0,0), new Vector3d(Math.PI,0,Math.PI), 45.0f, 0.1f, 200f);
+		double exaggeration = 15;
+		int lod = 10;
+		int steps = 1 << lod;
+		Vector3d[][] map = new Vector3d[steps + 1][steps + 1];
+		Vector3d[][] colours = new Vector3d[steps + 1][steps + 1];
+		terrain = new DiamondSquareTerrain(lod, 0.75);
+		for (int i = 0; i < steps; i++){
+			for (int j = 0; j < steps; j++){
+				double x = 1.0 * i / steps, z = 1.0 * j / steps;
+				double altitude = terrain.getAltitude(x, z);
+				map[i][j] = new Vector3d(x, altitude * exaggeration, z);
+				colours[i][j] = terrain.getColour(x, z);
+			}
+		}
 		
 		// The actual game loop
 		while (!Display.isCloseRequested()){
@@ -65,7 +79,7 @@ public class Engine{
 			
 			
 			input.pollInput(this, camera);
-			render.update(this, camera);
+			render.update(this, map, colours, camera);
 		}
 		Display.destroy();
 	}	

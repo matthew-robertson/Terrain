@@ -12,12 +12,12 @@ public class TrigTerrain implements Terrain{
 	}
 	@Override
 	public double getAltitude(double x, double y) {
-		return (.5 +   Math.cos(x * alpha) + Math.sin(y * beta));
+		return (.5 + 3 * Math.sin(x * alpha) * Math.cos(y * beta));
 	}
 
 	@Override
 	public Vector3d getColour(double x, double y) {
-		return new Vector3d(0.5 + 0.5 * Math.sin(getAltitude(x, y)), 0.5 + 0.5 * Math.cos(getAltitude(x, y)), 0);
+		return new Vector3d(0.5 + 0.5 * Math.sin(x * alpha), 0.5 - 0.5 * Math.cos(y * beta), 0);
 	}
 	
 }

@@ -40,11 +40,11 @@ public class Camera{
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glClearColor(0, 0.75f, 1, 1);
 		GL11.glPointSize(10);
+		//GL11.glEnable(GL11.GL_CULL_FACE);
 		/*GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL11.GL_LIGHT0);
-		GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, asFloatBuffer(new float[]{2.5f, 2.5f, 2.5f, 1f}));
-		GL11.glLight(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, asFloatBuffer(new float[]{0.5f, 0f, 2.5f, 1}));
-	*/
+		GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, asFloatBuffer(new float[]{1f, 1f, 1f, 1f}));
+		GL11.glLight(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, asFloatBuffer(new float[]{1f, 1f, 1f, 1}));*/
 	}
 	
 	public void updateView(){

@@ -4,17 +4,15 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.Sphere;
 
 import Client.Engine;
-import Terrain.FlatTerrain;
 import Terrain.Terrain;
-import Terrain.TrigTerrain;
 import Utils.Vector3d;
 
 public class Renderer{	
-	public void update(Engine engine, Camera cam){
+	public void update(Engine engine, Vector3d[][] map, Vector3d[][] colour, Camera cam){
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		GL11.glLoadIdentity();
 		cam.updateView();
-		drawTerrain(new TrigTerrain(0.5, 0.5), engine.roomsize);
+		drawTerrain(map, colour, engine.roomsize);
 		//drawTerrain(new FlatTerrain(0), engine.roomsize);
 		
 		//drawRoom(engine.roomsize);
@@ -23,18 +21,25 @@ public class Renderer{
 		
 	}
 	
-	private void drawTerrain(Terrain terrain, int roomsize){
+	private void drawTerrain(Vector3d[][] map, Vector3d[][] colours, int roomsize){
 		GL11.glPushMatrix();
 		GL11.glColor3d(5.0f, 0.5f, 0f);
 		GL11.glTranslated(0, 0, 0);
-		GL11.glBegin(GL11.GL_POINTS);
+		GL11.glBegin(GL11.GL_TRIANGLES);
 		{
 			Vector3d colour;
-			for (double i = -roomsize; i < roomsize; i+= 0.2){
-				for (double j = -roomsize; j < roomsize; j+= 0.2){
-					colour = terrain.getColour(i, j);
+			for (int i = 0; i < 100; i++){
+				for (int j = 0; j < 100; j++){
+					colour = colours[i][j];
 					GL11.glColor3d(colour.x, colour.y, colour.z);
-					GL11.glVertex3d(i, terrain.getAltitude(i,  j), j);
+					GL11.glVertex3d(i, map[i][j].y, j);
+					GL11.glVertex3d(i, map[i][j + 1].y, j + 1);
+					GL11.glVertex3d(i + 1, map[i + 1][j].y, j);
+					
+					colour = colours[i + 1][j + 1];
+					GL11.glVertex3d(i + 1, map[i + 1][j + 1].y, j + 1);
+					GL11.glVertex3d(i, map[i][j + 1].y, j + 1);
+					GL11.glVertex3d(i + 1, map[i + 1][j].y, j);
 				}
 			}			
 		}
