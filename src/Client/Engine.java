@@ -7,7 +7,9 @@ import Input.InputHandler;
 import Render.Camera;
 import Render.Renderer;
 import Terrain.DiamondSquareTerrain;
+import Terrain.PerlinTerrain;
 import Terrain.Terrain;
+import Terrain.TrigTerrain;
 import Utils.Vector3d;
 
 /**
@@ -58,28 +60,29 @@ public class Engine{
 	 */
 	public void gameLoop(){
 		camera = new Camera(this, new Vector3d(0,0,0), new Vector3d(Math.PI,0,Math.PI), 45.0f, 0.1f, 200f);
-		double exaggeration = 15;
-		int lod = 10;
+		double exaggeration = .1;
+		int lod = 8;
 		int steps = 1 << lod;
 		Vector3d[][] map = new Vector3d[steps + 1][steps + 1];
 		Vector3d[][] colours = new Vector3d[steps + 1][steps + 1];
-		terrain = new DiamondSquareTerrain(lod, 0.75);
+		terrain = new PerlinTerrain(steps, 0.7);
+		//terrain = new TrigTerrain(20, 20);
+		//terrain = new DiamondSquareTerrain(lod, .75);
 		for (int i = 0; i < steps; i++){
 			for (int j = 0; j < steps; j++){
-				double x = 1.0 * i / steps, z = 1.0 * j / steps;
-				double altitude = terrain.getAltitude(x, z);
-				map[i][j] = new Vector3d(x, altitude * exaggeration, z);
-				colours[i][j] = terrain.getColour(x, z);
+				//double x = 1.0 * i / steps, z = 1.0 * j / steps;
+				double altitude = terrain.getAltitude(i, j);
+				//System.out.println(altitude * exaggeration);
+				map[i][j] = new Vector3d(i, altitude * exaggeration, j);
+				colours[i][j] = terrain.getColour(i, j);
 			}
 		}
 		
 		// The actual game loop
 		while (!Display.isCloseRequested()){
-			//If there aren't too many particles to kill your computer, and it's not too soon
-			
-			
+						
 			input.pollInput(this, camera);
-			render.update(this, map, colours, camera);
+			render.update(this, map, colours, steps, camera);
 		}
 		Display.destroy();
 	}	

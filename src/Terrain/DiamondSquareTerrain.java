@@ -9,10 +9,7 @@ public class DiamondSquareTerrain implements Terrain{
 	private double roughness, min, max;
 	private int divisions;
 	private Random rng;
-	private Vector3d blue = new Vector3d(0, 0, 1.0);
-	private Vector3d green = new Vector3d(0, 1.0, 0);
-	private Vector3d white = new Vector3d(1.0, 1.0, 1.0);
-	
+		
 	public DiamondSquareTerrain(int lod, double roughness){
 		this.roughness = roughness;
 		this.divisions = 1 << lod;
@@ -44,16 +41,7 @@ public class DiamondSquareTerrain implements Terrain{
 				}
 			}
 			rough *= roughness;
-		}
-		
-		min = max = terrain[0][0];
-		for (int i = 0; i <= divisions; i++){
-			for (int j = 0; j <= divisions; j++){
-				if (terrain[i][j] <= min) min = terrain[i][j];
-				else if (terrain[i][j] >= max) max = terrain[i][j];
-			}
-		}
-		
+		}		
 	}
 	
 	private void diamond(int x, int y, int side, double scale){
@@ -88,7 +76,7 @@ public class DiamondSquareTerrain implements Terrain{
 	}
 	
 	private double rnd(){
-		return 2. * rng.nextDouble() - 1.0;
+		return 2. * rng.nextDouble();
 	}
 	
 	@Override

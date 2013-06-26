@@ -48,16 +48,16 @@ public class InputHandler{
 		}*/
 		
        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-    	   cam.move(0.75f, 0);
+    	   cam.move(0.25f, 0);
 	    }
        if (Keyboard.isKeyDown(Keyboard.KEY_W)){
-	    	cam.move(0.75f, 1);
+	    	cam.move(0.25f, 1);
 	    }
        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-    	   cam.move(-0.75f, 1);
+    	   cam.move(-0.25f, 1);
        }
        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-    	   cam.move(-0.75f, 0);
+    	   cam.move(-0.25f, 0);
 	    }
        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
     	   System.exit(0);
@@ -68,7 +68,9 @@ public class InputHandler{
        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
     	   cam.setPosition(cam.getPosition().Vector3dAdd(new Vector3d(0, 0.5f, 0f)));
        }
-       
+       if (Keyboard.isKeyDown(Keyboard.KEY_Z)) {
+    	  cam.lightPosition = cam.getPosition();
+       }
        if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
 	    	cam.setRotation(cam.getRotation().Vector3dSubtract(new Vector3d(0f, 5f, 0f)));
 	    }
