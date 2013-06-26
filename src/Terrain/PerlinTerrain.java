@@ -13,15 +13,15 @@ public class PerlinTerrain implements Terrain{
 	public PerlinTerrain(int size, double roughness){
 		rng = new Random();
 		this.roughness = roughness;// / size;
-		terrain = new double[size][size];
+		terrain = new double[size + 1][size + 1];
 		int xh = terrain.length - 1;
         int yh = terrain.length - 1;
 
         // set the corner points
-        terrain[0][0] = rng.nextDouble() - 0.5f;
-        terrain[0][yh] = rng.nextDouble() - 0.5f;
-        terrain[xh][0] = rng.nextDouble() - 0.5f;
-        terrain[xh][yh] = rng.nextDouble() - 0.5f;
+        terrain[0][0] = rng.nextDouble() + 0.5f;
+        terrain[0][yh] = rng.nextDouble() + 0.5f;
+        terrain[xh][0] = rng.nextDouble() + 0.5f;
+        terrain[xh][yh] = rng.nextDouble() + 0.5f;
 
         // generate the fractal
         generate(0, 0, xh, yh);
@@ -58,13 +58,13 @@ public class PerlinTerrain implements Terrain{
 	
 	@Override
 	public double getAltitude(double x, double y) {
-		// TODO Auto-generated method stub
 		return terrain[(int)x][(int)y];
 	}
 
 	public Vector3d getColour(double x, double y) {
-		double alt = getAltitude(x, y)* 0.7 * .7;
-		//return new Vector3d(1 / alt, 0, 0);
+		//return new Vector3d(0.5 + 0.5 * Math.sin(x), 0.5 - 0.5 * Math.cos(y), 0);
+		double alt = getAltitude(x, y);
+		alt = alt / 460;
 		if (alt < .5){
 			return blue.Vector3dAdd(green.Vector3dSubtract(blue).scalarMultiple((alt - 0.0) / 0.5));
 		}

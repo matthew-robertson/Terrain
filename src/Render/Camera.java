@@ -43,15 +43,15 @@ public class Camera{
 		GL11.glClearColor(0, 0.75f, 1, 1);
 		GL11.glClearDepth(1);
 		GL11.glPointSize(10);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glCullFace(GL11.GL_BACK);
-		GL11.glShadeModel(GL11.GL_SMOOTH);
-		GL11.glEnable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_LIGHT0);
-		GL11.glEnable(GL11.GL_COLOR_MATERIAL);
-		GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, asFloatBuffer(new float[]{.05f, .05f, .05f, 1f}));
-		GL11.glLight(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, asFloatBuffer(new float[]{.5f, .5f, .5f, 1}));
-		GL11.glLight(GL11.GL_LIGHT0, GL11.GL_POSITION, asFloatBuffer(new float[]{0, 0, 0, 1f}));
+		//GL11.glEnable(GL11.GL_CULL_FACE);
+		//GL11.glCullFace(GL11.GL_BACK);
+		//GL11.glShadeModel(GL11.GL_SMOOTH);
+		//GL11.glEnable(GL11.GL_LIGHTING);
+		//GL11.glEnable(GL11.GL_LIGHT0);
+		//GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+		//GL11.glLightModel(GL11.GL_LIGHT_MODEL_AMBIENT, asFloatBuffer(new float[]{.05f, .05f, .05f, 1f}));
+		//GL11.glLight(GL11.GL_LIGHT0, GL11.GL_DIFFUSE, asFloatBuffer(new float[]{.5f, .5f, .5f, 1}));
+		//GL11.glLight(GL11.GL_LIGHT0, GL11.GL_POSITION, asFloatBuffer(new float[]{0, 0, 0, 1f}));
 	}
 	
 	public void updateView(){

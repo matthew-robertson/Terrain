@@ -10,6 +10,10 @@ public class Vector3d{
 		this.z = z;
 	}
 	
+	public Vector3d crossProuct(Vector3d vec){
+		return new Vector3d(y * vec.z - z * vec.y, z * vec.x - x * vec.z,
+				x * vec.y - y * vec.x);
+	}
 	public double dotProduct(Vector3d vec){
 		double sum = this.x * vec.x + this.y * vec.y + this.z * vec.z;
 		return sum;
